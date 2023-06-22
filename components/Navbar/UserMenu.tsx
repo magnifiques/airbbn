@@ -5,11 +5,13 @@ import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItems from "./MenuItems";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 type Props = {};
 
 const UserMenu = (props: Props) => {
   const [isToggle, setIsToggle] = useState(false);
+  const registerModal = useRegisterModal();
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -30,12 +32,12 @@ const UserMenu = (props: Props) => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItems onClick={() => console.log("login")} label="Login" />
+              <MenuItems onClick={() => console.log("Login")} label="Login" />
             </>
             <>
               <MenuItems
-                onClick={() => console.log("sign out")}
-                label="Sign Out"
+                onClick={() => registerModal.onOpen()}
+                label="Sign Up"
               />
             </>
           </div>
