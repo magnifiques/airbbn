@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
@@ -10,6 +10,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/types";
+import useRentModal from "@/hooks/useRentModal";
 
 type Props = {
   currentUser: SafeUser | null;
@@ -19,11 +20,23 @@ const UserMenu = ({ currentUser }: Props) => {
   const [isToggle, setIsToggle] = useState(false);
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+        <div
+          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+          onClick={() => onRent()}
+        >
           Airbbn Your Home
         </div>
         <div
@@ -55,7 +68,7 @@ const UserMenu = ({ currentUser }: Props) => {
                   label="My Properties"
                 />
                 <MenuItems
-                  onClick={() => console.log("W")}
+                  onClick={() => rentModal.onOpen()}
                   label="Airbbn Your Home"
                 />
 

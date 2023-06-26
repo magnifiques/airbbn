@@ -19,6 +19,7 @@ type Props = {};
 
 const LoginModal = (props: Props) => {
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +54,10 @@ const LoginModal = (props: Props) => {
     });
   };
 
+  const toggleModal = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading title="Welcome Back!" subtitle="Log In To Your Account" />
@@ -97,9 +102,9 @@ const LoginModal = (props: Props) => {
           <div>New user?</div>
           <div
             className="text-neutral-800 cursor-pointer hover:underline"
-            onClick={loginModal.onClose}
+            onClick={toggleModal}
           >
-            Sign up
+            Create An Account
           </div>
         </div>
       </div>
