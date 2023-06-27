@@ -89,6 +89,7 @@ const Modal = ({
                       label={secondaryLabel}
                       disabled={disabled}
                       onClick={handleSecondaryAction}
+                      outline
                     />
                   )}
 
