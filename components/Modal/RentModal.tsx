@@ -7,6 +7,8 @@ import Heading from "../Heading";
 import { categories } from "../Navbar/Categories";
 import CategoryInput from "../Inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../Inputs/CountrySelect";
+import dynamic from "next/dynamic";
 
 type Props = {};
 
@@ -46,6 +48,12 @@ const RentModal = (props: Props) => {
   });
 
   const category = watch("category");
+  const location = watch("location");
+
+  const Map = useMemo(
+    () => dynamic(() => import("../Map"), { ssr: false }),
+    [location]
+  );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -95,12 +103,28 @@ const RentModal = (props: Props) => {
     </div>
   );
 
+  if (step === Steps.Location) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Select Your Location"
+          subtitle="Help the guests find your place"
+        />
+        <CountrySelect
+          value={location}
+          onCountryChange={(value) => setCustomValue("location", value)}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
   return (
     <Modal
       title="Airbbn your Home"
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onOpen}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryLabel={secondaryActionLabel}
       secondaryAction={step === Steps.Category ? undefined : onBack}
