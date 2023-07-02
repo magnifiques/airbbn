@@ -1,5 +1,6 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import getListingsById from "@/actions/getListingsById";
+import getReservation from "@/actions/getReservation";
 import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
 import ListingClient from "@/components/Listings/ListingClient";
@@ -11,6 +12,7 @@ type Props = {
 
 const ListingPage = async ({ params }: { params: Props }) => {
   const listing = await getListingsById(params);
+  const reservation = await getReservation(params);
   const currentUser = await getCurrentUser();
 
   if (!listing) {
@@ -22,7 +24,11 @@ const ListingPage = async ({ params }: { params: Props }) => {
   }
   return (
     <div>
-      <ListingClient listing={listing} currentUser={currentUser} />
+      <ListingClient
+        listing={listing}
+        currentUser={currentUser}
+        reservation={reservation}
+      />
     </div>
   );
 };
