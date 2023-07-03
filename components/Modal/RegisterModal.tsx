@@ -37,8 +37,8 @@ const RegisterModal = (props: Props) => {
     try {
       setIsLoading(true);
       const response = await axios.post("/api/register", data);
-
       registerModal.onClose();
+      loginModal.onOpen();
     } catch (error) {
       toast.error("Something Went Wrong");
     }

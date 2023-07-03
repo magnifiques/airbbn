@@ -56,13 +56,16 @@ const UserMenu = ({ currentUser }: Props) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItems onClick={() => console.log("W")} label="My Trips" />
+                <MenuItems
+                  onClick={() => router.push("/trips")}
+                  label="My Trips"
+                />
                 <MenuItems
                   onClick={() => console.log("W")}
                   label="My Favorites"
                 />
                 <MenuItems
-                  onClick={() => router.push("/trips")}
+                  onClick={() => router.push("/reservations")}
                   label="My Reservations"
                 />
                 <MenuItems
@@ -75,7 +78,13 @@ const UserMenu = ({ currentUser }: Props) => {
                 />
 
                 <hr />
-                <MenuItems onClick={() => signOut()} label="Log Out" />
+                <MenuItems
+                  onClick={async () => {
+                    await signOut();
+                    router.push("/");
+                  }}
+                  label="Log Out"
+                />
               </>
             ) : (
               <>
