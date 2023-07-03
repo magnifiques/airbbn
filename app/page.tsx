@@ -1,13 +1,17 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import getListing from "@/actions/getListings";
+import getListing, { getListingProps } from "@/actions/getListings";
 import ClientOnly from "@/components/ClientOnly";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/Listings/ListingCard";
 import { SafeListings } from "@/types";
 
-export default async function Home() {
-  const listings = await getListing();
+type Props = {
+  params: getListingProps;
+};
+
+const Home = async ({ params }: Props) => {
+  const listings = await getListing(params);
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {
@@ -34,4 +38,6 @@ export default async function Home() {
       </Container>
     </ClientOnly>
   );
-}
+};
+
+export default Home;
