@@ -11,6 +11,7 @@ import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/types";
 import useRentModal from "@/hooks/useRentModal";
+import { useRouter } from "next/navigation";
 
 type Props = {
   currentUser: SafeUser | null;
@@ -21,6 +22,7 @@ const UserMenu = ({ currentUser }: Props) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
+  const router = useRouter();
 
   const onRent = useCallback(() => {
     if (!currentUser) {
@@ -60,7 +62,7 @@ const UserMenu = ({ currentUser }: Props) => {
                   label="My Favorites"
                 />
                 <MenuItems
-                  onClick={() => console.log("W")}
+                  onClick={() => router.push("/trips")}
                   label="My Reservations"
                 />
                 <MenuItems
