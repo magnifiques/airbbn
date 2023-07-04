@@ -24,6 +24,7 @@
     "next": "13.4.6",
     "next-auth": "^4.22.1",
     "next-cloudinary": "^4.13.0",
+    "next-seo": "^6.1.0",
     "postcss": "8.4.24",
     "prisma": "^4.16.1",
     "query-string": "^8.1.0",

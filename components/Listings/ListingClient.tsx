@@ -1,5 +1,5 @@
 "use client";
-
+import { NextSeo } from "next-seo";
 import { SafeListings, SafeReservation, SafeUser } from "@/types";
 import { Reservation } from "@prisma/client";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -95,47 +95,53 @@ const ListingClient = ({ listing, currentUser, reservation = [] }: Props) => {
     }
   }, [dateRange, listing.price]);
   return (
-    <Container>
-      <div className="max-w-screen-lg mx-auto">
-        <div className="flex flex-col gap-6">
-          <ListingHead
-            title={listing.title}
-            imageSrc={listing.imgSrc}
-            locationValue={listing.locationValue}
-            id={listing.id}
-            currentUser={currentUser}
-          />
-          <div
-            className="grid 
+    <>
+      <NextSeo
+        title="About Us, or just any title that you wish"
+        description="Then with a short description here."
+      />
+      <Container>
+        <div className="max-w-screen-lg mx-auto">
+          <div className="flex flex-col gap-6">
+            <ListingHead
+              title={listing.title}
+              imageSrc={listing.imgSrc}
+              locationValue={listing.locationValue}
+              id={listing.id}
+              currentUser={currentUser}
+            />
+            <div
+              className="grid 
               grid-cols-1 
               md:grid-cols-7 
               md:gap-10 
               mt-6"
-          >
-            <ListingInfo
-              user={listing.user}
-              category={category}
-              description={listing.description}
-              roomCount={listing.roomCount}
-              bathroomCount={listing.bathroomCount}
-              guestCount={listing.guestCount}
-              locationValue={listing.locationValue}
-            />
-            <div className="order-first mb-10 md:order-last md:col-span-3">
-              <ListingReservation
-                price={listing.price}
-                totalPrice={totalPrice}
-                onChangeDate={(value) => setDateRange(value)}
-                dateRange={dateRange}
-                onSubmit={handleCreateReservation}
-                disabled={isLoading}
-                disabledDates={disabledDates}
+            >
+              <ListingInfo
+                user={listing.user}
+                category={category}
+                description={listing.description}
+                roomCount={listing.roomCount}
+                bathroomCount={listing.bathroomCount}
+                guestCount={listing.guestCount}
+                locationValue={listing.locationValue}
               />
+              <div className="order-first mb-10 md:order-last md:col-span-3">
+                <ListingReservation
+                  price={listing.price}
+                  totalPrice={totalPrice}
+                  onChangeDate={(value) => setDateRange(value)}
+                  dateRange={dateRange}
+                  onSubmit={handleCreateReservation}
+                  disabled={isLoading}
+                  disabledDates={disabledDates}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 

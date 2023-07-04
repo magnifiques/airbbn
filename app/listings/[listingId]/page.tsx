@@ -4,8 +4,8 @@ import getReservation from "@/actions/getReservation";
 import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
 import ListingClient from "@/components/Listings/ListingClient";
-import React from "react";
 
+import React from "react";
 type Props = {
   listingId: string;
 };
